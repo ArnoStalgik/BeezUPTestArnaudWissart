@@ -8,9 +8,16 @@ namespace ConsoleApp
     class Program
     {
         private const string CSVFILENAME = "bigfile.csv";
+        private const string ARGJSON = "JSON";
         static void Main(string[] args)
         {
-            LogHandler logs = new LogHandler();
+            bool renderAsJson = false;
+            if (args.Length > 0)
+            {
+                string arg = args[0];
+                renderAsJson = arg.ToUpper() == ARGJSON;
+            }            
+            LogHandler logs = new LogHandler(renderAsJson);
             ResponseObject currentLog;
             using (var reader = new StreamReader(CSVFILENAME))
             using (var csv = new CsvReader(reader))
