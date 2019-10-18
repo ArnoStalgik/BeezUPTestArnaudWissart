@@ -100,10 +100,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{2d3c305b-94cc-4aac-866f-3b757f073e94}</Project>

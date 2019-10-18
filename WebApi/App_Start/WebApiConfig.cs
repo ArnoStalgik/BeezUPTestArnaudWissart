@@ -11,7 +11,6 @@ namespace WebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuration et services API Web
             GlobalConfiguration.Configuration.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter()
             {
@@ -22,7 +21,6 @@ namespace WebApi
                 }
             });
 
-            // Itinéraires de l'API Web
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

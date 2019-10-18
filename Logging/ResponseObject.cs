@@ -12,5 +12,9 @@
             type = "error";
             errorMessage = "La valeur de columnC n'est pas valide";
         }
+        public bool ShouldSerializesumCD()
+        {
+            return sumCD.HasValue;
+        }
     }
 }

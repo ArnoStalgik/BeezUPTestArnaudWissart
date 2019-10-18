@@ -1,9 +1,9 @@
 ﻿using Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 
 namespace WebApi.Controllers
@@ -12,7 +12,7 @@ namespace WebApi.Controllers
     {
         [HttpGet]
         [HttpPost]
-        public HttpResponseMessage ReadCSV(string csvUri)
+        public HttpResponseMessage ReadCSV(string csvUri, string renderAs = "JSON")
         {
             WebClient client = new WebClient();
             Stream stream;
@@ -24,9 +24,10 @@ namespace WebApi.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, $"Un problème a été détecté lors de la tentative d'accès au fichier. Message d'erreur : {ex.Message}");
             }
-            LogHandler logHandler = new LogHandler(true); // true to force render as JSON as asked in Step 1 
-            logHandler.ReadFile(stream);
-            return Request.CreateResponse(HttpStatusCode.OK, logHandler.GetLogs());
-        }
+            LogHandler logHandler = new LogHandler(renderAs, stream);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(logHandler.ToString(), Encoding.UTF8);
+            return response;
+        }        
     }
 }
